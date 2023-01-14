@@ -87,23 +87,23 @@ class TabBarWidget extends StatelessWidget {
                         physics: const NeverScrollableScrollPhysics(),
                         children: [
                           //Tab 1
-                          SignupWidget(
-                            onClickedSignIn: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) =>
-                                    const TabBarWidget(index: 1),
-                              ));
-                            },
-                          ),
-                          //Tab 2
                           SignInWidget(
                             onClickedSignUp: () {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      const TabBarWidget(index: 0),
+                                      const TabBarWidget(index: 1),
                                 ),
                               );
+                            },
+                          ),
+                          //Tab 2
+                          SignupWidget(
+                            onClickedSignIn: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) =>
+                                    const TabBarWidget(index: 0),
+                              ));
                             },
                           ),
                         ],

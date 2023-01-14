@@ -1,6 +1,5 @@
 import 'package:auth/auth.dart';
 import 'package:flutter/material.dart';
-import 'package:project1/Screen/TabBar.dart';
 import 'package:project1/Widgets/color.dart';
 
 class Home_Page extends StatelessWidget {
@@ -17,7 +16,7 @@ class Home_Page extends StatelessWidget {
     var w = MediaQuery.of(context).size.width.round();
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.black45,
         actions: [
           IconButton(
             onPressed: signUserOut,
@@ -41,7 +40,7 @@ class Home_Page extends StatelessWidget {
                 child: Text(
                   style: TextStyle(
                     color: MyAppColour.tabBarColor,
-                    fontSize: h * 0.02,
+                    fontSize: h * 0.017,
                     fontWeight: FontWeight.w600,
                     fontStyle: FontStyle.italic,
                     fontFamily: 'times new roman',

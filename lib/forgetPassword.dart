@@ -19,16 +19,6 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
   }
 
   Future verifyEmail() async {
-    // Show loading Circle
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) => const Center(
-        child: CircularProgressIndicator(
-          color: MyAppColour.mainColor,
-        ),
-      ),
-    );
     try {
       await FirebaseAuth.instance
           .sendPasswordResetEmail(email: emailController.text.trim());
@@ -43,7 +33,6 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
         },
       );
     } on FirebaseException catch (e) {
-      print(e);
       showDialog(
         context: context,
         builder: (context) {
@@ -54,7 +43,6 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
           );
         },
       );
-      Navigator.of(context).pop();
     }
   }
 

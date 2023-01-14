@@ -15,9 +15,9 @@ class _LoginOrRegisterPageState extends State<LoginOrRegisterPage> {
   @override
   Widget build(BuildContext context) {
     if (showLoginPage) {
-      return const TabBarWidget(index: 1);
-    } else {
       return const TabBarWidget(index: 0);
+    } else {
+      return const TabBarWidget(index: 1);
     }
   }
 }
