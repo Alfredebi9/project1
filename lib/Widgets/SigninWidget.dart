@@ -1,12 +1,9 @@
-import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:project1/Screen/log_Out.dart';
+import 'package:project1/Widgets/Button.dart';
 import 'package:project1/Widgets/TextfieldWidget.dart';
 import 'package:project1/Widgets/color.dart';
-import 'package:project1/utils.dart';
-
 import '../forgetPassword.dart';
 
 class SignInWidget extends StatefulWidget {
@@ -24,14 +21,54 @@ class _SignInWidgetState extends State<SignInWidget> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  @override
-  void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
-
-    super.dispose();
+  void signUserIn() async {
+    // Show loading Circle
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => const Center(
+        child: CircularProgressIndicator(
+          color: MyAppColour.mainColor,
+        ),
+      ),
+    );
+    // try sign in
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
+      );
+      // stop the loading indicator
+      Navigator.pop(context);
+    } on FirebaseAuthException catch (e) {
+      // stop the loading indicator
+      Navigator.pop(context);
+      // show error message
+      showErrorMessage(e.code);
+    }
   }
 
+  // Error message
+  void showErrorMessage(String message) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: MyAppColour.mainColor,
+          title: Center(
+            child: Text(
+              message,
+              style: const TextStyle(
+                color: Colors.white,
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     var w = MediaQuery.of(context).size.width.round();
     var h = MediaQuery.of(context).size.height.round();
@@ -41,11 +78,6 @@ class _SignInWidgetState extends State<SignInWidget> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           TextfieldWidget(
-            validateMode: AutovalidateMode.onUserInteraction,
-            Validator: (email) =>
-                email != null && !EmailValidator.validate(email)
-                    ? 'Enter a Valid Email'
-                    : null,
             textHeader: 'Email Address',
             textInputType: TextInputType.emailAddress,
             hidden: false,
@@ -56,9 +88,6 @@ class _SignInWidgetState extends State<SignInWidget> {
             height: h * 0.05,
           ),
           TextfieldWidget(
-            validateMode: AutovalidateMode.onUserInteraction,
-            Validator: (value) =>
-                value != null && value.length < 6 ? 'Enter 6 characters' : null,
             textHeader: 'Password',
             textInputType: TextInputType.visiblePassword,
             hidden: true,
@@ -67,7 +96,7 @@ class _SignInWidgetState extends State<SignInWidget> {
           ),
           GestureDetector(
             onTap: () => Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => ForgetPasswordWidget(),
+              builder: (context) => const ForgetPasswordWidget(),
             )),
             child: Container(
               width: w * 0.9,
@@ -90,23 +119,9 @@ class _SignInWidgetState extends State<SignInWidget> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(h * 0.01),
             ),
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                primary: MyAppColour.darkColor,
-              ),
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: ((context) => const Log_OuT()),
-                  ),
-                );
-              },
-              child: Text(
-                'Login',
-                style: TextStyle(
-                  fontSize: h * 0.02,
-                ),
-              ),
+            child: MyButton(
+              text: 'Login',
+              onTap: signUserIn,
             ),
           ),
           Container(
@@ -137,34 +152,6 @@ class _SignInWidgetState extends State<SignInWidget> {
           ),
         ],
       ),
-    );
-  }
-
-  Future signIn() async {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) => Center(
-        child: CircularProgressIndicator(
-          color: MyAppColour.mainColor,
-        ),
-      ),
-    );
-    try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailController.text.trim(),
-        password: passwordController.text.trim(),
-      );
-    } on FirebaseAuthException catch (e) {
-      print(e);
-
-      Utils.showSnackBar(e.message);
-    }
-
-    //Navigator.of(context) not working!
-    var navigatorkey;
-    navigatorkey.currentState!.popUntil(
-      (route) => route.isFirst,
     );
   }
 }

@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:project1/Widgets/color.dart';
 
 class TextfieldWidget extends StatelessWidget {
-  final AutovalidateMode validateMode;
-  final String? Function(String?) Validator;
   final String textHeader;
   final TextInputType textInputType;
   final bool hidden;
@@ -16,8 +14,6 @@ class TextfieldWidget extends StatelessWidget {
     required this.hidden,
     required this.control,
     required this.textinputaction,
-    required this.Validator,
-    required this.validateMode,
   });
 
   @override
@@ -37,11 +33,9 @@ class TextfieldWidget extends StatelessWidget {
         SizedBox(
           height: h * 0.0005,
         ),
-        Container(
+        SizedBox(
           height: h * 0.07,
           child: TextFormField(
-            autovalidateMode: validateMode,
-            validator: Validator,
             controller: control,
             textInputAction: textinputaction,
             decoration: InputDecoration(
