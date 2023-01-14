@@ -1,9 +1,6 @@
-import 'dart:ffi';
-
 import 'package:auth/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:project1/Widgets/color.dart';
-import 'package:project1/utils.dart';
 
 class ForgetPasswordWidget extends StatefulWidget {
   const ForgetPasswordWidget({super.key});
@@ -13,7 +10,6 @@ class ForgetPasswordWidget extends StatefulWidget {
 }
 
 class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
-  final formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
 
   @override
@@ -27,7 +23,7 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (context) => Center(
+      builder: (context) => const Center(
         child: CircularProgressIndicator(
           color: MyAppColour.mainColor,
         ),
@@ -39,7 +35,7 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
       showDialog(
         context: context,
         builder: (context) {
-          return AlertDialog(
+          return const AlertDialog(
             content: Text(
               'Password reset link sent! Check your email',
             ),
@@ -70,7 +66,7 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
       appBar: AppBar(
         backgroundColor: Colors.black45,
         elevation: 0,
-        title: Text('Reset Password'),
+        title: const Text('Reset Password'),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -94,17 +90,17 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
                   controller: emailController,
                   cursorColor: Colors.black,
                   textInputAction: TextInputAction.done,
-                  decoration: InputDecoration(labelText: 'Email'),
+                  decoration: const InputDecoration(labelText: 'Email'),
                 ),
                 SizedBox(
                   height: h * 0.03,
                 ),
-                Container(
+                SizedBox(
                   width: w * 0.8,
                   height: h * 0.05,
                   child: ElevatedButton.icon(
-                    icon: Icon(Icons.email_outlined),
-                    label: Text(
+                    icon: const Icon(Icons.email_outlined),
+                    label: const Text(
                       'Reset Password',
                     ),
                     onPressed: verifyEmail,
