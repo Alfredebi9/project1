@@ -25,7 +25,7 @@ class _SignInWidgetState extends State<SignInWidget> {
     // Show loading Circle
     showDialog(
       context: context,
-      barrierDismissible: false,
+    
       builder: (context) => const Center(
         child: CircularProgressIndicator(
           color: MyAppColour.mainColor,

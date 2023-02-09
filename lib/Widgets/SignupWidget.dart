@@ -22,8 +22,7 @@ class _SignupWidgetState extends State<SignupWidget> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   // ignore: non_constant_identifier_names
-  final ConfirmPasswordController = TextEditingController();
-  final formKey = GlobalKey<FormState>();
+  final confirmPasswordController = TextEditingController();
 
   void signUserUp() async {
     // Show loading Circle
@@ -38,7 +37,7 @@ class _SignupWidgetState extends State<SignupWidget> {
     );
     // try sign up
     try {
-      if (passwordController.text == ConfirmPasswordController.text) {
+      if (passwordController.text == confirmPasswordController.text) {
         await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailController.text,
           password: passwordController.text,
@@ -223,7 +222,7 @@ class _SignupWidgetState extends State<SignupWidget> {
               ),
               Flexible(
                 child: TextfieldWidget(
-                  control: ConfirmPasswordController,
+                  control: confirmPasswordController,
                   textinputaction: TextInputAction.done,
                   textHeader: 'Confirm Password',
                   textInputType: TextInputType.visiblePassword,
