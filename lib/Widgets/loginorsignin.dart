@@ -17,7 +17,7 @@ class _LoginOrRegisterPageState extends State<LoginOrRegisterPage> {
     if (showLoginPage) {
       return const TabBarWidget(index: 0);
     } else {
-      return const TabBarWidget(index: 1);
+      return const TabBarWidget(index: 0);
     }
   }
 }
